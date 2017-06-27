@@ -1,5 +1,7 @@
 'use strict';
 
+// require('dotenv').config();
+
 //npm dependencies
 const express = require('express');
 const mongoose = require('mongoose');
@@ -12,6 +14,8 @@ const app = express();
 
 let server;
 
+app.use(require('../route/restaurant-router.js'));
+app.use(require('./error-handler.js'));
 
 const serverControl = module.exports = {};
 
