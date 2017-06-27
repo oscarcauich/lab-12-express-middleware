@@ -10,7 +10,6 @@ const superagent = require('superagent');
 const Restaurant = require('../model/restaurant.js');
 const server = require('../lib/server.js');
 
-let tempRestaurant;
 // const API_URL = process.env.API_URL;
 const API_URL =  process.env.API_URL;
 
@@ -84,33 +83,34 @@ describe('testing restaurant router', () => {
           expect(res.status).toEqual(409);
         });
     });
-    
+  });
+
+  describe('testing GET /api/restaurant/:id', () => {
+    let tempRestaurant;
+    afterEach(() => Restaurant.remove({}));
+    beforeEach(() => {
+      return new Restaurant({
+        name: 'Subway',
+        address: '12345 Some Street',
+        phoneNumber: '567-123-4567',
+      })
+      .save()
+      .then(restaurant => {
+        tempRestaurant = restaurant;
+      });
+    });
+    it('should respond with a restaurant', () => {
+      return superagent.get(`${API_URL}/api/restaurant/${tempRestaurant._id}`)
+      .then(res => {
+        expect(res.status).toEqual(200);
+      });
+    });
+
+
   });
 });
 
 
-
-//
-
-//
-
-//
-
-//
-//   describe('testing GET /api/notes/:id', () => {
-//     var tempNote;
-//
-//     afterEach(() => Note.remove({}))
-//     beforeEach(() => {
-//       return new Note({
-//         title: 'hello world',
-//         content: 'lsakjf laksjf lkajsdf lkjasflkjasf'
-//       })
-//       .save()
-//       .then(note => {
-//         tempNote = note;
-//       })
-//     })
 //
 //     it('should respond with a note', () => {
 //       console.log('tempNote', tempNote)

@@ -41,6 +41,7 @@ serverControl.stop = () => {
         server.isOn = false;
         resolve();
       });
+      return;
     }
     reject();
   });

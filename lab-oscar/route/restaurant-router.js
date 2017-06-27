@@ -10,6 +10,7 @@ const Restaurant = require('../model/restaurant.js');
 //module logic
 const restaurantRouter = module.exports = new Router();
 
+//POST router
 restaurantRouter.post('/api/restaurant', jsonParser, (req, res, next) => {
   console.log('it got hit');
 
@@ -19,6 +20,13 @@ restaurantRouter.post('/api/restaurant', jsonParser, (req, res, next) => {
   .catch(next);
 });
 
+//GET Router
+restaurantRouter.get('/api/restaurant/:id', (req, res, next) => {
+  console.log('GET got hit', req.params.id);
+  Restaurant.findById(req.params.id)
+  .then(restaurant => res.json(restaurant))
+  .catch(next);
+});
 // noteRouter.get('/api/notes/:id', (req, res, next) => {
 //   console.log('GET /api/notes/:id')
 //   Note.findById(req.params.id)
