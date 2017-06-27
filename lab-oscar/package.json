@@ -13,6 +13,10 @@
     "mocha": "^3.4.2"
   },
   "scripts": {
+    "lint": "eslint",
+    "start": "node server.js",
+    "start-db": "mkdir -p ./db && mongod --dbpath ./db",
+    "stop-db": "killall mongod",
     "test": "mocha"
   },
   "keywords": [],
