@@ -178,44 +178,11 @@ describe('testing restaurant router', () => {
       });
     });
 
+    it('should responde with code 404', () => {
+      return superagent.delete(`${API_URL}/api/restaurant/7488484`)
+      .catch(res => {
+        expect(res.status).toEqual(404);
+      });
+    });
   });
 });
-
-
-//   describe('testing DELETE /api/notes/:id', () => {
-//     afterEach(() => Note.remove({}))
-//     beforeEach(() => {
-//       return new Note({
-//         title: 'hello world',
-//         content: 'lsakjf laksjf lkajsdf lkjasflkjasf'
-//       })
-//       .save()
-//       .then(note => {
-//         tempNote = note;
-//       })
-//     })
-//
-//     it('should delete a note', () => {
-//       console.log('tempNote', tempNote)
-//       return superagent.delete(`${API_URL}/api/notes/${tempNote._id}`)
-//       .then(res => {
-//         expect(res.status).toEqual(204)
-//       })
-//     })
-//
-//     it('bad id should respond with a 404', () => {
-//       console.log('tempNote', tempNote)
-//       return superagent.delete(`${API_URL}/api/notes/12134`)
-//       .catch(res => {
-//         expect(res.status).toEqual(404)
-//       })
-//     })
-//     it('bad id should respond with a 404', () => {
-//       console.log('tempNote', tempNote)
-//       return superagent.delete(`${API_URL}/api/notes/5952a8d5c1b8d566a64ea23f`)
-//       .catch(res => {
-//         expect(res.status).toEqual(404)
-//       })
-//     })
-//   })
-// })
