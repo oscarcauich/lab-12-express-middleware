@@ -146,22 +146,42 @@ describe('testing restaurant router', () => {
         expect(res.status).toEqual(404);
       });
     });
+
+    it('should respond with 400', ()=> {
+      return superagent.put(`${API_URL}/api/restaurant/${tempRestaurant.id}`)
+      .send({})
+      .catch(res => {
+        expect(res.status).toEqual(400);
+        expect(res.body.phoneNumber).toEqual('796-999-1234');
+      });
+    });
+  });
+
+  describe('testing DELETE /api/restaurant/:id', () => {
+    let tempRestaurant;
+    afterEach(() => Restaurant.remove({}));
+    beforeEach(() => {
+      return new Restaurant({
+        name: 'Burger King',
+        address: '4444 Weird Street',
+        phoneNumber: '444-444-4444',
+      })
+      .save()
+      .then(restaurant => {
+        tempRestaurant = restaurant;
+      });
+    });
+    it('should delete a restaurant', () => {
+      return superagent.delete(`${API_URL}/api/restaurant/${tempRestaurant._id}`)
+      .then(res => {
+        expect(res.status).toEqual(204);
+      });
+    });
+
   });
 });
 
 
-
-//
-//     it('should respond with a note', () => {
-//       console.log('tempNote', tempNote)
-//       return superagent.put(`${API_URL}/api/notes/${tempNote._id}`)
-//       .send({content: 'hehe'})
-//       .catch(res => {
-//         expect(res.status).toEqual(400)
-//       })
-//     })
-//   })
-//
 //   describe('testing DELETE /api/notes/:id', () => {
 //     afterEach(() => Note.remove({}))
 //     beforeEach(() => {

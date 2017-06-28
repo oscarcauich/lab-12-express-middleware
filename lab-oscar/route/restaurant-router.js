@@ -27,7 +27,6 @@ restaurantRouter.get('/api/restaurant/:id', (req, res, next) => {
 });
 
 restaurantRouter.put('/api/restaurant/:id', jsonParser, (req, res, next) => {
-  console.log('PUT /api/notes/:id');
   let options = {
     runValidators: true,
     new: true,
@@ -37,24 +36,8 @@ restaurantRouter.put('/api/restaurant/:id', jsonParser, (req, res, next) => {
   .catch(next);
 });
 
-// noteRouter.put('/api/notes/:id', jsonParser, (req, res, next) => {
-//   console.log('POST /api/notes/:id');
-//
-//   let options = {
-//     runValidators: true,
-//     new: true,
-//   }
-//
-//   Note.findByIdAndUpdate(req.params.id, req.body, options)
-//   .then(note => res.json(note))
-//   .catch(next)
-// })
-//
-//
-// noteRouter.delete('/api/notes/:id', (req, res, next) => {
-//   console.log('DELETE /api/notes/:id')
-//
-//   Note.findByIdAndRemove(req.params.id)
-//   .then(() => res.sendStatus(204))
-//   .catch(next)
-// })
+restaurantRouter.delete('/api/restaurant/:id', (req, res, next) => {
+  Restaurant.findByIdAndRemove(req.params.id)
+  .then(() => res.sendStatus(204))
+  .catch(next);
+});
