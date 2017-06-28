@@ -12,7 +12,6 @@ const restaurantRouter = module.exports = new Router();
 
 //POST router
 restaurantRouter.post('/api/restaurant', jsonParser, (req, res, next) => {
-  console.log('it got hit');
 
   new Restaurant(req.body)
   .save()
@@ -22,19 +21,22 @@ restaurantRouter.post('/api/restaurant', jsonParser, (req, res, next) => {
 
 //GET Router
 restaurantRouter.get('/api/restaurant/:id', (req, res, next) => {
-  console.log('GET got hit', req.params.id);
   Restaurant.findById(req.params.id)
   .then(restaurant => res.json(restaurant))
   .catch(next);
 });
-// noteRouter.get('/api/notes/:id', (req, res, next) => {
-//   console.log('GET /api/notes/:id')
-//   Note.findById(req.params.id)
-//   .then(note => res.json(note))
-//   .catch(next)
-// })
-//
-//
+
+restaurantRouter.put('/api/restaurant/:id', jsonParser, (req, res, next) => {
+  console.log('PUT /api/notes/:id');
+  let options = {
+    runValidators: true,
+    new: true,
+  };
+  Restaurant.findByIdAndUpdate(req.params.id, req.body, options)
+  .then(restaurant => res.json(restaurant))
+  .catch(next);
+});
+
 // noteRouter.put('/api/notes/:id', jsonParser, (req, res, next) => {
 //   console.log('POST /api/notes/:id');
 //
